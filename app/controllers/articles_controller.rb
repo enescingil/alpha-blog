@@ -8,8 +8,13 @@ class ArticlesController < ApplicationController
   def create
     #render plain: params[:article].inspect
     @article = Article.new(article_params)
-    @article.save
-    redirect_to articles_show(@article)
+    if @article.save
+      flash[:notice] = "Article was created!"
+      redirect_to articles_show(@article)
+    else
+      render 'new'
+    end
+    
   end
   
   private
